@@ -8,19 +8,18 @@ resource "azurerm_public_ip" "bastion_public_ip" {
 }
 
 resource "azurerm_subnet" "bastion_subnet" {
-  name                 = "bastion-subnet"
+  name                 = "AzureBastionSubnet"
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["10.1.1.0/27"]
 }
 
 resource "azurerm_bastion_host" "bastion_host" {
-  name                = "bastion-host"
+  name                = "bastionHost"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   sku                 = "Standard"
   tunneling_enabled   = "true"
-
   ip_configuration {
     name                 = "bastion-ipconfig"
     subnet_id            = azurerm_subnet.bastion_subnet.id
