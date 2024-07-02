@@ -4,7 +4,7 @@ resource "random_pet" "rg_name" {
 
 resource "azurerm_resource_group" "rg" {
   location = var.resource_group_location
-  name     = random_pet.rg_name
+  name     = random_pet.rg_name.id
 }
 
 resource "azurerm_virtual_network" "vnet" {
@@ -58,7 +58,7 @@ resource "azurerm_lb_rule" "lb_rule" {
   probe_id                       = azurerm_lb_probe.lb_probe.id
   loadbalancer_id                = azurerm_lb.load_bancer.id
   name                           = "httprule"
-  protocol                       = "tcp"
+  protocol                       = "Tcp"
   frontend_port                  = "80"
   backend_port                   = "80"
   frontend_ip_configuration_name = "deafult-frontend-ip"
@@ -85,10 +85,6 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
 
   }
-}
-
-resource "azurerm" "name" {
-  
 }
 
 
