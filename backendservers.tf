@@ -32,6 +32,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.vm_nic[count.index].id]
   size                  = "Standard_DS1_v2"
+  depends_on            = [azurerm_network_interface.vm_nic]
 
   os_disk {
     name                 = "vm-disk"
@@ -46,7 +47,8 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  computer_name  = "vm-${count.index}"
+  computer_name = "vm-${count.index}"
+
   admin_username = var.vm_user
 
   admin_ssh_key {
